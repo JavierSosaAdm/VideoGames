@@ -34,6 +34,9 @@ module.exports = (sequelize) => {
     rating: {
       type: DataTypes.DECIMAL(4, 2),
       allowNull: false
+    },
+    created: {
+      type: DataTypes.BOOLEAN('created', 'not created')
     }
 
   }, {timestamps: false});

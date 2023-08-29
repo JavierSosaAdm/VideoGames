@@ -29,8 +29,14 @@ const getInfo = async () => {
             genres: game.genres.map((genre) => {
                 return genre.name
             }).toLowerCase(),
+            image: game.background_image,
+            updated: game.updated,
+            rating: game.rating
         }
-    })
-    
+    });
+
+    console.log(infoDB);
+    const result = [ ...infoDB, infoApi ];
+    return result;
 };
 
