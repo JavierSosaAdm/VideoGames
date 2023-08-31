@@ -4,8 +4,31 @@ require('dotenv').config();
 const { API_URL, API_KEY } = process.env;
 const size = 25;
 
-const create = async ({ name, description, platform, image, updated, rating, genres }) => {
-    const newGame = await axios.post()
+const create = async (name, description, platform, image, updated, rating, genres) => {
+    
+    const newGame = await Videogame.create({
+        
+            name,
+            description,
+            platform,
+            image,
+            updated,
+            rating,
+            created: true
+        
+    });
+
+    if (Array.isArray(genres)) {
+        for (const genre in genres) {
+            const genreDB = await Genre.findOne({
+                where: {
+                    id: genre.id
+                }
+            })
+            await newGame.addGenre(genreDB);
+        }
+    }
+    return newGame;
 };
 
 const getInfo = async () => {
@@ -63,15 +86,7 @@ const getById = async (id) => {
 };
 
 const getGenre = async () => {
-    const genreAPI = await axios.get(`${API_URL}/genre?key=${API_KEY}`);
-    const infoGenres = genreAPI.data
-    const arrayGen = infoGenres.results.map((genre) => {
-        return {
-            id: genre.uuid,
-            name: genre.name
-        }
-    });
-    return [...arrayGen]
+    
 };
 
 
