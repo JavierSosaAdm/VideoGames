@@ -16,9 +16,20 @@ const getHandler = async (req, res) => {
     }
 };
 
-const nameHandler = async (req, res) => {};
+const nameHandler = async (req, res) => {
+    const { name } = req.query;
+};
 
-const idHandler = async (req, res) => {};
+const idHandler = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const response = await getById(id);
+        res.status(200).json(response);
+        
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
+};
 
 const getGenreHandler = async (req, res) => {
     try {
