@@ -1,9 +1,12 @@
 const { Router } = require('express');
-const { getHandler } = require('../controllers/handlers')
+const { postHandler, getHandler, nameHandler, idHandler } = require('../controllers/handlers')
 
 const videogameRoute = Router();
 
-videogameRoute.get('/', getHandler)
+videogameRoute.post('/videogames', postHandler);
+videogameRoute.get('/videogames', getHandler);
+videogameRoute.get('/videogames/name', nameHandler);
+videogameRoute.get('/videogames/:id', idHandler);
 
 module.exports = { videogameRoute };
 
