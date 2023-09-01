@@ -1,8 +1,10 @@
 const axios = require('axios');
+const { Sequelize } = require("sequelize");
 const { Videogame, Genre } = require('../db')
 require('dotenv').config();
 const { API_URL, API_KEY } = process.env;
 const size = 25;
+const Op = Sequelize.Op;
 
 const create = async (name, description, platform, image, updated, rating, genres) => {
     
@@ -28,6 +30,7 @@ const create = async (name, description, platform, image, updated, rating, genre
             await newGame.addGenre(genreDB);
         }
     }
+    
     return newGame;
 };
 
@@ -52,8 +55,9 @@ const getInfo = async () => {
                 return gen.name;
             })
         }
+        
     })
-    return gamesAPI;
+    return [...gamesAPI];
 };
 
 const getByName = async (name) => {
@@ -86,35 +90,14 @@ const getById = async (id) => {
 };
 
 const getGenre = async () => {
-    
+    const genres = (await axios.get(`${API_URL}/genres?key=${API_KEY}`)).data.results;
+    const genresAPI = [...genres].map((gen) =>{
+        return {
+            name: gen.name,
+        }
+    })
+    const genresDB = await Genre.bulkCreate(genresAPI);
+    return [...genresDB];
 };
 
-
-
-module.exports = { create, getInfo, getByName, getById, getGenre }
-
-// const gameAPI = await axios.get(`${API_URL}/games?key=${API_KEY}`)
-// .then();
-// const results = gameAPI.data.results;
-// if (results.length >= 50) {
-
-//     const infoGames = results.map((game) => {
-
-//         const minName = game.name
-//         return {
-//             id: game.id,
-//             name: minName,
-//             description: getDescription(),
-//             platform: game.platforms.map((plat) => {
-//                 return plat.platform.name
-//             }),
-//             image: game.background_image,
-//             updated: game.updated,
-//             rating: game.rating,
-//             genres: game.genres.map((gen) => {
-//                 return gen.name;
-//             })
-//         }
-//     })
-//     return infoGames; 
-// };
+module.exports = { create, getInfo, getByName, getById, getGenre };

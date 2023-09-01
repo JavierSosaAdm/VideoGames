@@ -3,7 +3,7 @@ const { getGenreHandler } = require('../controllers/handlers')
 
 const genreRoute = Router(); 
 
-genreRoute.get('./genre', getGenreHandler)
+genreRoute.get('/genres', getGenreHandler)
 
 
 
