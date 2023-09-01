@@ -21,16 +21,16 @@ const create = async (name, description, platform, image, updated, rating, genre
     });
 
     if (Array.isArray(genres)) {
-        for (const genre in genres) {
-            const genreDB = await Genre.findOne({
+        for (const genre of genres) {
+            const genresDB = await Genre.findOne({
                 where: {
-                    id: genre.id
+                    name: genre.name
                 }
             })
-            await newGame.addGenre(genreDB);
+            await newGame.addGenre(genresDB);
         }
     }
-    
+
     return newGame;
 };
 
@@ -54,10 +54,11 @@ const getInfo = async () => {
             genres: game.genres.map((gen) => {
                 return gen.name;
             })
-        }
-        
+        }     
     })
-    return [...gamesAPI];
+
+    const gamesBD = await Videogame.findAll();
+    return [...gamesAPI, ...gamesBD];
 };
 
 const getByName = async (name) => {
@@ -80,9 +81,9 @@ const getById = async (id) => {
                 image: detail.background_image,
                 updated: detail.updated,
                 rating: detail.rating,
-                genres: detail.genres.map((gen) => {
-                    return gen.name;
-                })
+                // genres: detail.genres.map((gen) => {
+                //     return gen.name;
+                // })
             }
         })
         return description;

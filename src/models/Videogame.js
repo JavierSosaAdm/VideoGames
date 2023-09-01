@@ -28,7 +28,7 @@ module.exports = (sequelize) => {
       allowNull: false
     },
     updated: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATEONLY,
       allowNull: false
     },
     rating: {
