@@ -24,13 +24,12 @@ const create = async (name, description, platform, image, updated, rating, genre
         for (const genre of genres) {
             const genresDB = await Genre.findOne({
                 where: {
-                    name: genre.name
+                    id: genre.id
                 }
             })
             await newGame.addGenre(genresDB);
         }
     }
-
     return newGame;
 };
 
@@ -56,37 +55,71 @@ const getInfo = async () => {
             })
         }     
     })
-
+    
     const gamesBD = await Videogame.findAll();
     return [...gamesAPI, ...gamesBD];
 };
 
 const getByName = async (name) => {
-    const names = await axios.get(`${API_URL}/games/${name}?key=${API_KEY}`);
+    if (!name) {
+        return 'Debe escribir un nombre válido'
+    } 
+        
+        // const name = name.toLowerCase();
+
+        const response = await axios.get(`${API_URL}/games?search=${name}&key=${API_KEY}`);
+        const namesAPI = response.data.results;
+        const namesDB = await Videogame.findAll({
+            where: {
+                name: {
+                    [Op.iLike]: `%${name}%`
+                }
+            }
+        });
+        
+        const AllGames = [...namesAPI, ...namesDB];
+        if (AllGames.length === 0) {
+            return 'No se encontraron juegos con ese nombre'
+        } else {
+            return AllGames.slice(0, 15);
+        };
+    
 };
 
 const getById = async (id) => {
     if (isNaN(id)) {
-
+        const gameID = await Videogame.findOne({
+            where: {
+            id: id,
+            },
+            include: [
+                {
+                    model: Genre,
+                    as: 'genres',
+                    attributes: ["id", "name"],
+                    through: { attributes: [] }
+                }
+            ]
+        })
+        return gameID;
     } else {
-        const detail = await axios.get(`${API_URL}/games/${id}?key=${API_KEY}`)
-        const description = detail.description.map((detail) => {
+        const detail = (await axios.get(`${API_URL}/games/${id}?key=${API_KEY}`)).data
+        if (detail) {
             return {
                 id: detail.id,
                 name: detail.name,
                 description: detail.description,
-                platform: detail.platforms.map((plat) => {
+                platform: detail.platforms ? detail.platforms.map((plat) => {
                     return plat.platform.name
-                }),
+                }): [],
                 image: detail.background_image,
                 updated: detail.updated,
                 rating: detail.rating,
-                // genres: detail.genres.map((gen) => {
-                //     return gen.name;
-                // })
+                genres: detail.genres.map((gen) => {
+                    return gen.name;
+                })
             }
-        })
-        return description;
+        }
     }
 };
 
@@ -102,3 +135,4 @@ const getGenre = async () => {
 };
 
 module.exports = { create, getInfo, getByName, getById, getGenre };
+   

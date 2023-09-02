@@ -5,7 +5,7 @@ const videogameRoute = Router();
 
 videogameRoute.post('/videogames', postHandler);
 videogameRoute.get('/videogames', getHandler);
-videogameRoute.get('/videogames/name', nameHandler);
+videogameRoute.get('/search', nameHandler);
 videogameRoute.get('/videogames/:id', idHandler);
 
 module.exports = { videogameRoute };
