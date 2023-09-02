@@ -62,13 +62,8 @@ const getInfo = async () => {
 
 const getByName = async (name) => {
     if (!name) {
-        return 'Debe escribir un nombre válido'
-    } 
-        
-        // const name = name.toLowerCase();
-
-        const response = await axios.get(`${API_URL}/games?search=${name}&key=${API_KEY}`);
-        const namesAPI = response.data.results;
+        return 'Debe escribir un nombre válido';
+    }; 
         const namesDB = await Videogame.findAll({
             where: {
                 name: {
@@ -76,14 +71,17 @@ const getByName = async (name) => {
                 }
             }
         });
+    
+        const response = await axios.get(`${API_URL}/games?search=${name}&key=${API_KEY}`);
+        const namesAPI = response.data.results;
         
-        const AllGames = [...namesAPI, ...namesDB];
+        const AllGames = [...namesDB, ...namesAPI];
+        
         if (AllGames.length === 0) {
             return 'No se encontraron juegos con ese nombre'
         } else {
             return AllGames.slice(0, 15);
-        };
-    
+        }
 };
 
 const getById = async (id) => {
@@ -118,9 +116,9 @@ const getById = async (id) => {
                 genres: detail.genres.map((gen) => {
                     return gen.name;
                 })
-            }
-        }
-    }
+            };
+        };
+    };
 };
 
 const getGenre = async () => {
