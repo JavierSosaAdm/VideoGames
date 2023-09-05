@@ -1,11 +1,12 @@
-require('dotenv').config();
-import { HOST } from process.env;
+
 
 import axios from 'axios';
 
+const link = 'localhost:3001'
+
 export function getGames() {
     return async (dispatch) => {
-        const response = await axios.get(`${HOST}/videogames`)
+        const response = await axios.get(`${link}/videogames`)
         return dispatch({
             type: 'GET_ALL_VIDEOGAMES',
             payload: response.data 
