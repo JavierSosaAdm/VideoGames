@@ -1,4 +1,4 @@
-export const GET_ALL_VIDEOGAME = 'GET_ALL_VIDEOGAME';   
+export const GET_ALL_VIDEOGAMES = 'GET_ALL_VIDEOGAMES';   
 
 export const GET_GENRE = 'GET_GENRE'; 
 
