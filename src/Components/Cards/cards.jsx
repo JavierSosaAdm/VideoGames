@@ -1,11 +1,13 @@
 import Card from '../Card/card';
-const Cards = () => {
+
+const Cards = ({allGames}) => {
+    const gamesList = allGames
+
     return (
         <div>
-            <Card/>
-            <Card/>
-            <Card/>
-            <Card/>
+            {gamesList?.map((game) => (
+                <Card game={game} key={game.id}/>
+            ))}
         </div>
     )
 };

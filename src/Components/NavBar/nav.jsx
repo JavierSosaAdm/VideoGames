@@ -1,9 +1,9 @@
-const NavBar = () => {
+const NavBar = ({handleChange, handleSubmit}) => {
     return (
         <div>
-            <form>
-                <imput placeholder='Busqueda'/>
-                <button>Buscar</button>
+            <form onChange={handleChange} >
+                <input placeholder='Busqueda' type='search'/>
+                <button type='submit' onClick={handleSubmit}>Buscar</button>
             </form>
         </div>
     )

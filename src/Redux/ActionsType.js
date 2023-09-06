@@ -10,7 +10,7 @@ export const ORDER = 'ORDER';
 
 export const GET_GAME_ID = 'GET_GAME_ID';
 
-export const GET_GAME_NAME = 'GET_GAME_NAME';
+export const GET_BY_NAME = 'GET_BY_NAME';
 
 export const DELETE_GAME = 'DELETE_GAME';
 
