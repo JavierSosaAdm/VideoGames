@@ -1,6 +1,6 @@
 import Card from '../Card/card';
 
-const Cards = ({allGames}) => {
+const Cards = ({allGames, handlerClick}) => {
     const gamesList = allGames
 
     return (

@@ -1,28 +1,28 @@
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getGames, clearDetail, getByName } from '../../Redux/Actions'
+import { getGames, getByName } from '../../Redux/Actions'
 import Cards from '../../Components/Cards/cards';
 import NavBar from '../../Components/NavBar/nav';
 
-const Home = () => {
+function Home () {
     const dispatch = useDispatch();
     const allGames = useSelector((state) => state.allGames); 
     const [searchString, setSearchString] = useState('');
     //* filtro sobre la BD
-    const handleChange = (e) => {
+    function handleChange (e) {
         e.preventDefault();
         setSearchString(e.target.value)  
     };
     
     //* filtro sobre el estado
-    const handleSubmit = (e) => {
+    function handleSubmit (e) {
         e.preventDefault();
         dispatch(getByName(searchString))
     };
-    
-    
-    
+
+    const handlerClick = (id) => {};
+  
     // const [filtrado, setFiltrado] = useState(allGames);
     
     //     const filtrado = allGames.filter((game) => {
