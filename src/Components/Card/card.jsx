@@ -2,8 +2,8 @@ import { useNavigate } from 'react-router-dom';
 import style from './card.module.css'    
 const Card = ({game, handlerClick}) => {
     const navegate = useNavigate();
-    const {name, image, platform, rating} = game
-    function handlerNavigate (id) {
+    const {id, name, image, platform, rating} = game
+    function handlerNavigate () {
         navegate(`/detail/${id}`);
     }  
     return (

@@ -5,10 +5,11 @@ import { getById } from '../../Redux/Actions';
 const Detail = () => {
     const navigate = useNavigate()
     const location = useLocation();
+    console.log(location.pathname);
     const dispatch = useDispatch();
     const {id} = useParams();
     const gameData = useSelector(state => state.detail);
-    console.log(gameData);
+    // console.log(gameData);
     const [game, setGame] = useState({});
     // console.log(game);
     useEffect(() => {
@@ -19,11 +20,15 @@ const Detail = () => {
         setGame(gameData);
     }, [gameData])
 
+    const handlerNavigate = () => {
+        navigate('/home')
+    }
+
     return (
         <div>
             <h1>Descripción del Juego!</h1>
             <h2>{game?.name}</h2>
-            {/* console.log({game.name}); */}
+
             <div>
                 <img src={game?.image} alt="imagen del juego" />
                 <p>Gerenos: {game?.genres}</p>
@@ -33,7 +38,7 @@ const Detail = () => {
                 <p>ID: {game?.id}</p>
                 <p>Descripción: {game?.description}</p>
             </div>
-
+            <button onClick={handlerNavigate}>BACK</button>
         </div>
     )
 };
