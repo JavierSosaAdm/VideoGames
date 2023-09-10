@@ -8,6 +8,7 @@ const { API_URL, API_KEY } = process.env;
 const postHandler = async (req, res) => {
     const { name, description, platform, image, updated, rating, genres } = req.body;
     try {
+        
         const response = await create(name, description, platform, image, updated, rating, genres)
         res.status(200).json(response)
     } catch (error) {

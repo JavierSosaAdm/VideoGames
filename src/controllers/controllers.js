@@ -8,6 +8,8 @@ const Op = Sequelize.Op;
 
 const create = async (name, description, platform, image, updated, rating, genres) => {
     
+
+
     const newGame = await Videogame.create({
         
             name,
@@ -16,22 +18,30 @@ const create = async (name, description, platform, image, updated, rating, genre
             image,
             updated,
             rating,
-            created: true
-        
+            created: true,
+            genres
     });
 
-    if (Array.isArray(genres)) {
-        for (const genre of genres) {
-            const genresDB = await Genre.findOne({
-                where: {
-                    id: genre.id
-                }
-            })
-            await newGame.addGenre(genresDB);
-        }
+    if (genres && genres.length > 0) {
+        const generosAsociados = await Genre.findAll({
+            where: {
+                name: genres,
+            }
+        });
+        await newGame.addGenres(generosAsociados);
     }
     return newGame;
 };
+// if (Array.isArray(genres)) {
+//     for (const genre of genres) {
+//         const genresDB = await Genre.findOne({
+//             where: {
+//                 name: genre.name
+//             }
+//         })
+//         await newGame.addGenre(genresDB);
+//     }
+// }
 
 const getInfo = async () => {
     
@@ -67,7 +77,7 @@ const getByName = async (name) => {
         const namesDB = await Videogame.findAll({
             where: {
                 name: {
-                    [Op.iLike]: `%${name}%`
+                    [Op.iLike]: `${name}`
                 }
             }
         });
@@ -122,14 +132,21 @@ const getById = async (id) => {
 };
 
 const getGenre = async () => {
-    const genres = (await axios.get(`${API_URL}/genres?key=${API_KEY}`)).data.results;
-    const genresAPI = [...genres].map((gen) =>{
-        return {
-            name: gen.name,
-        }
-    })
-    const genresDB = await Genre.bulkCreate(genresAPI);
-    return [...genresDB];
+   
+        const data = await Genre.findOne()
+        if(!data) {
+            const genres = (await axios.get(`${API_URL}/genres?key=${API_KEY}`)).data.results;
+            const genresAPI = [...genres].map((gen) =>{
+                return {
+                    name: gen.name, 
+                }
+            })
+            const genresDB = await Genre.bulkCreate(genresAPI)   
+            return [...genresDB];
+    } else {
+        const dataComplete = await Genre.findAll()
+        return dataComplete;
+    }
 };
 
 module.exports = { create, getInfo, getByName, getById, getGenre };
