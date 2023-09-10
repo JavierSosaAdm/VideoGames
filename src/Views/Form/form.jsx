@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { postGame, getGenres } from '../../Redux/Actions';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { validates } from './validates'
 const Form = () => {
     const dispatch = useDispatch()
     const { genres } = useSelector(state => state.allGenres);
@@ -34,78 +35,8 @@ const Form = () => {
         description: '',
     });
     
-    let [errors, setErrors] = useState({
-        name:'',
-        platform: '',
-        genres: [],
-        rating: '',
-        image: '',
-        updated: '',
-        description: '',
-    });
-        const validate = async (form) => {    
-            // let {name, platform, genres, rating, image, updated, description} = form;
-            let newErrors = {...errors};
-
-            if (form.name) {
-                if (/^[a-zA-Z0-9\s]+$/.test(form.name)) {
-                    newErrors = {...errors, name: ''}
-                } else {
-                    newErrors.name = 'Nombre inválido'
-                }
-            }
-                  
-            if (form.genres) {
-                if (/^[a-zA-Z0-9\s]+$/.test(form.platform)) {
-                    newErrors = {...errors, platform: ''}
-                } else {
-                    newErrors = {...errors, platform: '*Plataforma invalida'}
-                };
-            }            
-            
-            if (form.genres) {
-                if (/^[a-zA-Z0-9\s]+$/.test(form.genres)) {
-                    newErrors = {...errors, genres: ''}
-                } else {
-                    newErrors = {...errors, genres: '*Elija al menos un género'}
-                };
-            }
-
-            if (form.rating) {
-                if (/^(?:10(?:\.0{1,2})?|[0-9](?:\.\d{1,2})?)$/.test(form.rating)) {
-                    newErrors = {...errors, rating: ''}
-                } else {
-                    newErrors = {...errors, rating: '*Número inválido'}
-                };
-            }   
-            
-            if (form.image) {
-                if (/\.(jpg|jpeg|png|gif|bmp)$/i.test(form.image)) {
-                    newErrors = {...errors, image: ''}
-                } else {
-                    newErrors = {...errors, image: '*El link no pertenece a una inagen'}
-                };
-            }
-
-            if (form.updated) {
-                if (/^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$/.test(form.updated)) {
-                    newErrors = {...errors, updated: ''}
-                } else {
-                    newErrors = {...errors, updated: '*Fecha inválida'}
-                };
-            }
-
-            if (form.description) {
-                if (/[\w\u00C0-\u017F]+/g.test(form.description)) {
-                    newErrors = {...errors, description: ''}
-                } else {
-                    newErrors = {...errors, description: '*Debes agregar una descripción del juego'}
-                };     
-            }   
-               
-            setErrors(newErrors);    
-            
-        };
+    let [errors, setErrors] = useState({});
+        
         
         function handlerFormChange (event) {
             if (event.target) {
@@ -117,12 +48,10 @@ const Form = () => {
                     [name]: value // bindear los event.target.value del estado y de los input (para evitar cambios)
                 }); 
                
-                setErrors(
-                    validate({
+                validates({
                     ...form,
-                    [name]: value,
-                    
-                })
+                    [name]: value
+                }, errors, setErrors
                 )
             };
         };
@@ -159,7 +88,7 @@ return (
             <form onSubmit={handlerSubmit} >
                 <label htmlFor="name">Nombre: </label>
                 <input id='name' value={form.name} type="text" name='name' placeholder="Escribir nombre" onChange={handlerFormChange} />
-                {errors.name? <span>{errors.name}</span> : null}
+                <span>{errors.name}</span>
                 
                 
                 <hr />
@@ -174,7 +103,7 @@ return (
                 </option>
                 {allGenres?.map((gen) => {
                     return (
-                        <option value= {gen.name} key={gen.name}>
+                        <option value= {gen.id} key={gen.name}>
                             {gen.name}
                         </option>
                     )

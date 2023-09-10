@@ -57,14 +57,19 @@ export function getGenres() {
 };
 
 export function postGame(form) {
-    return async (dispatch) => {
-        console.log(form);
-        const response = await axios.post(`${link}/videogames`, form)
+    try {
+        return async (dispatch) => {
+            console.log(form);
+            const response = await axios.post(`${link}/videogames`, form)
+            
+            return dispatch({
+                type: 'ADD_GAME',
+                payload: response.data
+            })
+        }
         
-        return dispatch({
-            type: 'ADD_GAME',
-            payload: response.data
-        })
+    } catch (error) {
+        console.log(error);
     }
 };
 
