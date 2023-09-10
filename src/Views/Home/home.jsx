@@ -21,7 +21,7 @@ function Home () {
         dispatch(getByName(searchString))
     };
 
-    const handlerClick = (id) => {};
+    // const handlerClick = (id) => {};
   
     // const [filtrado, setFiltrado] = useState(allGames);
     

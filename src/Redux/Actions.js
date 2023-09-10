@@ -26,28 +26,41 @@ export function getByName(name) {
 
 export function getById(id) {
     return async (dispatch) => {
-        const response = await axios.get(`${link}/videogames/${id}`)
+        try {
+            const response = await axios.get(`${link}/videogames/${id}`)
+            alert('El Juego fué creado correctamente!')
             return dispatch({
                 type: 'GET_BY_ID',
                 payload: response.data
             })
-        
+        } catch (error) {
+            console.log(error);
+            alert('Hubo un error, vuelve a intentarlo nuevamente')
+        }
     };
 };
 
 export function getGenres() {
     return async (dispatch) => {
-        const response = await axios.get(`${link}/genres`)
-        return dispatch({
-            type: 'GET_GENRE',
-            payload: response.data
-        })
+        try {
+            const response = await axios.get(`${link}/genres`)
+            
+             dispatch({
+                type: 'GET_GENRE',
+                payload: response.data
+            })
+            
+        } catch (error) {
+            console.log(error);
+        }
     };
 };
 
-export function postGame() {
+export function postGame(form) {
     return async (dispatch) => {
-        const response = await axios.post(`${link}/videogames`)
+        console.log(form);
+        const response = await axios.post(`${link}/videogames`, form)
+        
         return dispatch({
             type: 'ADD_GAME',
             payload: response.data
