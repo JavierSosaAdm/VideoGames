@@ -19,18 +19,14 @@ const create = async (name, description, platform, image, updated, rating, genre
             updated,
             rating,
             created: true,
-            genres
     });
 
     if (genres && genres.length > 0) {
-        const generosAsociados = await Genre.findAll({
-            where: {
-                name: genres,
-            }
-        });
-        await newGame.addGenres(generosAsociados);
+        await newGame.addGenres(genres);
     }
-    return newGame;
+    const finalResponse = {...newGame.get(), genres: genres? await Promise.all(genres.map((genreId) => Genre.findByPk(genreId))) : []};
+
+    return finalResponse;
 };
 // if (Array.isArray(genres)) {
 //     for (const genre of genres) {
