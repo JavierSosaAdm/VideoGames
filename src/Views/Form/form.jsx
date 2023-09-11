@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch,  } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { postGame, getGenres } from '../../Redux/Actions';
+import { postGame } from '../../Redux/Actions';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { validates } from './validates'
 const Form = () => {
     const dispatch = useDispatch()
-    const { genres } = useSelector(state => state.allGenres);
+    // const { genres } = useSelector(state => state.allGenres);
     
     const [allGenres, setAllGenres] = useState([])
     const [selectedGenre, setSelectedGenre] = useState([])
@@ -73,11 +73,6 @@ const Form = () => {
                dispatch(postGame(form))
 
         };
-        
-
-        
-
-
 
 return (
     <div> 
@@ -88,9 +83,7 @@ return (
             <form onSubmit={handlerSubmit} >
                 <label htmlFor="name">Nombre: </label>
                 <input id='name' value={form.name} type="text" name='name' placeholder="Escribir nombre" onChange={handlerFormChange} />
-                <span>{errors.name}</span>
-                
-                
+                <span>{errors.name}</span>    
                 <hr />
                 <label htmlFor="platform">Plataformas: </label>
                 <input id='platform' value={form.platform} type="text" name='platform' placeholder="Inserte las plataformas de jugabilidad" onChange={handlerFormChange} />
@@ -109,8 +102,6 @@ return (
                     )
                 })}
                 </select>
-                {/* <input id='genres' value={form.genres} type="text" name='genres' placeholder="Inserte los géneros" onChange={handlerFormChange} /> */}
-                {/* {errors.genres !== '' ? <span>{errors.genres}</span> : ''} */}
                 <hr />
                 <label htmlFor="rating">Rating: </label>
                 <input id='rating' value={form.rating} type="text" name='rating' placeholder="Puntúe el juego" onChange={handlerFormChange} />
@@ -120,7 +111,7 @@ return (
                 <input id='image' value={form.image} type="text" name='image' placeholder="Inserte link de la imagen" onChange={handlerFormChange} />
                 {errors.image !== '' ? <span>{errors.image}</span> : ''}
                 <hr />
-                <label htmlFor="updated">Fecha: </label>
+                <label htmlFor="updated">Fecha de lanzamiento: </label>
                 <input id='updated' value={form.updated} type="text" name='updated' placeholder="Coloque la fecha" onChange={handlerFormChange} />
                 {errors.updated !== '' ? <span>{errors.updated}</span> : ''}
                 <hr />
@@ -128,7 +119,8 @@ return (
                 <input id='description' value={form.description} type="text" name='description' placeholder="Elabore una breve descripción del juego" onChange={handlerFormChange} />
                 {errors.description !== '' ? <span>{errors.description}</span> : ''}
                 <hr />
-                <button type='submit' >Crear Juego</button>
+                <button type='submit'>Crear Juego</button>
+                
             </form>
         </div>
     )

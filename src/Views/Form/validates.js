@@ -47,7 +47,7 @@ export const validates = async (form, errors, setErrors) => {
         if (/^(0?[1-9]|[12][0-9]|3[01])\/(0?[1-9]|1[0-2])\/\d{4}$/.test(form.updated)) {
             setErrors (prev => ({...prev, updated: ''})) 
         } else {
-            setErrors (prev => ({...prev, updated: '*Fecha inválida'})) 
+            setErrors (prev => ({...prev, updated: '*Formato correcto DD/MM/YYYY'})) 
         };
     }
 
