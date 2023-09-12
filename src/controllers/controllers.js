@@ -24,27 +24,21 @@ const create = async (name, description, platform, image, updated, rating, genre
     if (genres && genres.length > 0) {
         await newGame.addGenres(genres);
     }
-    const finalResponse = {...newGame.get(), genres: genres? await Promise.all(genres.map((genreId) => Genre.findByPk(genreId))) : []};
+    const finalResponse = {
+        ...newGame.get(), 
+        genres: genres? await Promise.all(genres.map((genreId) => Genre.findByPk(genreId))) : []};
 
     return finalResponse;
 };
-// if (Array.isArray(genres)) {
-//     for (const genre of genres) {
-//         const genresDB = await Genre.findOne({
-//             where: {
-//                 name: genre.name
-//             }
-//         })
-//         await newGame.addGenre(genresDB);
-//     }
-// }
+
 
 const getInfo = async () => {
     
     const resp1 = (await axios.get(`${API_URL}/games?page_zise=${size}&page=1&key=${API_KEY}`)).data.results;
     const resp2 = (await axios.get(`${API_URL}/games?page_zise=${size}&page=2&key=${API_KEY}`)).data.results;
     const resp3 = (await axios.get(`${API_URL}/games?page_zise=${size}&page=3&key=${API_KEY}`)).data.results;
-    const resp4 = (await axios.get(`${API_URL}/games?page_zise=${size}&page=4&key=${API_KEY}`)).data.results;
+    const resp4 = (await axios.get(`${API_URL}/games?page_zise=${size}&page=4&key=${API_KEY}`)).data.results; 
+    
     const gamesAPI = [...resp1, ...resp2, ...resp3, ...resp4].map((game) => {
         
         return {
@@ -86,7 +80,21 @@ const getByName = async (name) => {
         if (AllGames.length === 0) {
             return 'No se encontraron juegos con ese nombre'
         } else {
-            return AllGames.slice(0, 15);
+            return AllGames.slice(0, 15).map((game) => {
+               return {
+                    id: game.id,
+                    name: game.name,
+                    platform: game.platforms.map((plat) => {
+                        return plat.platform.name
+                    }),
+                    image: game.background_image,
+                    updated: game.updated,
+                    rating: game.rating,
+                    genres: game.genres.map((gen) => {
+                        return gen.name;
+                    })
+                }
+            });
         }
 };
 
