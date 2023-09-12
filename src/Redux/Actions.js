@@ -4,6 +4,7 @@ const link = 'http://localhost:3001'
 
 export function getGames() {
     return async (dispatch) => {
+        
         const response = await axios.get(`${link}/videogames`)
             return dispatch({
                 type: 'GET_ALL_VIDEOGAMES',
@@ -14,13 +15,19 @@ export function getGames() {
 };
 
 export function getByName(name) {
+    
     return async (dispatch) => {
-        const response = await axios.get(`${link}/search?name=${name}`)
-            return dispatch({
-                type: 'GET_BY_NAME',
-                payload: response.data 
-            })
-        
+        try {
+            const response = await axios.get(`${link}/search?name=${name}`)
+            
+                 dispatch({
+                    type: 'GET_BY_NAME',
+                    payload: response.data
+                })
+            
+        } catch (error) {
+            console.log(error);
+        }   
     };
 };
 
@@ -28,7 +35,7 @@ export function getById(id) {
     return async (dispatch) => {
         try {
             const response = await axios.get(`${link}/videogames/${id}`)
-            alert('El Juego fué creado correctamente!')
+            
             return dispatch({
                 type: 'GET_BY_ID',
                 payload: response.data
@@ -61,7 +68,7 @@ export function postGame(form) {
         return async (dispatch) => {
             console.log(form);
             const response = await axios.post(`${link}/videogames`, form)
-            
+            alert('El Juego fué creado correctamente!')
             return dispatch({
                 type: 'ADD_GAME',
                 payload: response.data
@@ -70,6 +77,7 @@ export function postGame(form) {
         
     } catch (error) {
         console.log(error);
+        alert('hubo un inconveniente, prueba nuevamete')
     }
 };
 
