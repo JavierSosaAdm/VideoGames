@@ -1,0 +1,55 @@
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(https://img.freepik.com/foto-gratis/equipo-videojuegos-futurista-iluminado-ia-generativa-discoteca_188544-32105.jpg?w=1060&t=st=1694493938~exp=1694494538~hmac=c1f8f2d3b1269268554daef66c007de72610aa00a51ee1955dbe31abe584177e);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    font-size: large;
+    color: #232129;
+    font-family: -apple-system, Roboto, sans-serif, serif;
+    min-height: 90vh;
+}
+
+.api{
+position: relative;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.img {
+    width: 45%;
+}
+
+.welcome{
+    transform: rotate(360deg);
+    align-self: center;
+    transition: 0.5s;
+    cursor: pointer;
+    font-size: large;
+ }
+
+.button{
+align-self: center;
+border: 5px;
+border-radius: 1rem;
+cursor: pointer;
+ }
+
+.welcome:hover {
+    color: rgba(25, 22, 219, 0.9);
+    padding: 0.3rem;
+    transition: 0.6s;
+    border-radius: 1rem;
+}
+
+.p{
+    border: 5px solid;
+    background-color: rgba(0, 255, 255, 0.589);
+}

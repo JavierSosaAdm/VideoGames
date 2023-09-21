@@ -2,6 +2,8 @@ import {Link} from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { getByName } from '../../Redux/Actions';
+import style from './nav.module.css';
+
 const NavBar = () => {
     const [searchString, setSearchString] = useState('');
     const dispatch = useDispatch()
@@ -20,15 +22,15 @@ const NavBar = () => {
     };
 
     return (
-        <>
+        <div>
             <Link to='/form'>
-                <button>CREAR VIDEOJUEGO</button>
+                <button className={style.button}>CREAR VIDEOJUEGO</button>
             </Link>
-            <form onChange={handleChange} >
-                <input placeholder='Busqueda' type='search'/>
-                <button type='submit' onClick={handleSubmit}>Buscar</button>
+            <form className={style.searchBar} onChange={handleChange} >
+                <input className={style.input} placeholder='Busqueda' type='search'/>
+                <button className={style.searchButton} type='submit' onClick={handleSubmit}>Buscar</button>
             </form>
-        </>
+        </div>
     )
 };
 

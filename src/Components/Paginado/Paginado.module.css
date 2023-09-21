@@ -1,0 +1,21 @@
+.h3{
+    color: rgb(238, 240, 243);
+}
+
+.button {
+    cursor: pointer;
+    border-radius: 1rem;
+    color: rgb(238, 240, 243);
+    background-color: rgb(79, 79, 184);
+    font-weight: bold;
+    padding: 0.5rem;
+    
+    }
+    
+    .button:hover {
+        color: rgb(234, 14, 14);
+        padding: 0.7rem;
+        transition: 0.5s;
+        background-color: rgba(78, 78, 149, 0.685);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }

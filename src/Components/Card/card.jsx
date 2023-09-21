@@ -8,11 +8,11 @@ const Card = ({game, handlerClick}) => {
     }  
     return (
         <div className={style.card}>
-            <p>Nombre: {name}</p>
+            <p className={style.name} >Game: {name}</p>
             <img src={image} alt="imagen del juego" className={style.cardImg} />
-            <p>genres: {genres}</p>
+            <p className={style.name}>genres: {genres}</p>
             
-            <button onClick={handlerNavigate} >
+            <button className={style.button} onClick={handlerNavigate} >
                 Ver Detalles
             </button>
         </div>

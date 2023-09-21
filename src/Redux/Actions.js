@@ -66,7 +66,7 @@ export function getGenres() {
 export function postGame(form) {
     try {
         return async (dispatch) => {
-            console.log(form);
+            
             const response = await axios.post(`${link}/videogames`, form)
             alert('El Juego fué creado correctamente!')
             return dispatch({
@@ -81,4 +81,23 @@ export function postGame(form) {
     }
 };
 
+export function filter (e) {
+    return async (dispatch) => {
+        return dispatch({
+            type: 'FILTER_GENRES',
+            payload: e
+        })
+    }
+    
+    
+};
+
 export function clearDetail () {};
+
+
+// export function filter (genre) {
+//     return {
+//         type: 'FILTER_GENRES',
+//         payload: genre
+//     }
+// };

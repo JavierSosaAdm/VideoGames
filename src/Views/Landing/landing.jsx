@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Navigate } from 'react-router-dom';
-
+import style from './landing.module.css'
 class Landing extends Component {
     constructor(props) {
         super(props);
@@ -19,8 +19,8 @@ class Landing extends Component {
         };
 
         return (
-            <>
-                <p>Aplication created by:  
+            <div className={style.body}>
+                <p className={style.p}>Aplication created by:  
                     
                     <a class="AppHeader-logo ml-2" href="https://github.com/JavierSosaAdm" data-hotkey="g d" aria-label="Homepage " data-turbo="false" data-analytics-event="{&quot;category&quot;:&quot;Header&quot;,&quot;action&quot;:&quot;go to dashboard&quot;,&quot;label&quot;:&quot;icon:logo&quot;}">
                         <svg height="32" aria-hidden="true" viewBox="0 0 16 16" version="1.1" width="32" data-view-component="true" class="octicon octicon-mark-github v-align-middle color-fg-default">
@@ -29,8 +29,8 @@ class Landing extends Component {
                         <span>JAVIER SOSA</span>
                     </a>
                 </p>
-                <button onClick={this.handleNavigate} >COMENCEMOS</button>
-            </>
+                <button className={style.welcome} onClick={this.handleNavigate} >COMENCEMOS</button>
+            </div>
         )
 
     }

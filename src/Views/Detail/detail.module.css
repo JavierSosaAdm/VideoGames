@@ -1,0 +1,100 @@
+.container {
+ display: flex;
+ position: relative;
+ align-items: center;
+ justify-content: center;
+ flex-direction: column;
+ color: rgb(231, 35, 35)
+}
+
+
+.detail {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.454);
+    background-size: contain;
+    height: 50%;
+    width: 50%;
+    height: 70rem;
+    border-radius: 4.5rem;
+    color:rgb(240, 240, 218);
+}
+.name{
+    font-size: 35px;
+    font-family: "Helvetica Neue",;
+    color:rgb(240, 240, 218);
+    background-color: rgb(20, 53, 142);
+    border-radius: 1rem;
+    background-size: contain;
+    padding: 0.5rem;
+
+}
+
+.image{
+    border: 5px outset rgb(100, 93, 93);
+    height: 18rem;
+    width: 20rem;
+    border-right: 30rem;
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+}
+
+.h1 {
+    font-size: 35px;
+    font-family: "Helvetica Neue",;
+    color:rgb(240, 240, 218);
+    background-color: rgb(20, 53, 142);
+    border-radius: 1rem;
+    background-size: contain;
+    padding: 0.5rem;
+
+}
+.gender{
+    font-family: Comic Sans MS;
+    color: white;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 22px;
+    color: black;
+}
+
+.home{
+    border-radius: 30%;
+    cursor: pointer;
+    font-family: Castellar;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-left: 4rem;
+    margin-bottom: 1.5rem;
+    height: 2.5rem;
+    width: 6rem;
+}
+
+.home:hover {
+    background-color:red;
+    transform: scale(1.2);
+    transition: 0.3s;
+}
+
+.button {
+border: 5px;
+border-radius: 1rem;
+cursor: pointer;
+height: 36px;
+width: 65px;
+font-size: 15px;
+font-weight: bold;
+}
+
+.button:hover {
+    color: rgb(234, 14, 14);
+    padding: 0.3rem;
+    transition: 0.6s;
+    background-color: rgba(52, 52, 169, 0.685);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

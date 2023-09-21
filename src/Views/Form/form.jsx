@@ -4,6 +4,7 @@ import { postGame } from '../../Redux/Actions';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { validates } from './validates'
+import style from './form.module.css';
 const Form = () => {
     const dispatch = useDispatch()
     // const { genres } = useSelector(state => state.allGenres);
@@ -69,7 +70,7 @@ const Form = () => {
         function handlerSubmit (event) {
             event.preventDefault();  
                // preventDefault es para que en los formularios no se refresque la pantalla a la hora de enviarlo
-               console.log(form);
+            //    console.log(form);
                dispatch(postGame(form))
 
         };
@@ -78,18 +79,35 @@ return (
     <div> 
             <h1>Crear Videojuego</h1>
             <Link to='/home'>
-                    <button>Volver al menú Principal</button>
+                    <button className={style.button} >Volver al menú Principal</button>
             </Link>
-            <form onSubmit={handlerSubmit} >
-                <label htmlFor="name">Nombre: </label>
-                <input id='name' value={form.name} type="text" name='name' placeholder="Escribir nombre" onChange={handlerFormChange} />
+            <form onSubmit={handlerSubmit} className={style.form} >
+                <label className={style.label} htmlFor="name">Nombre: </label>
+                <input className={style.formInput} id='name' value={form.name} type="text" name='name' placeholder="Escribir nombre" onChange={handlerFormChange} />
                 <span>{errors.name}</span>    
                 <hr />
-                <label htmlFor="platform">Plataformas: </label>
-                <input id='platform' value={form.platform} type="text" name='platform' placeholder="Inserte las plataformas de jugabilidad" onChange={handlerFormChange} />
+                <label className={style.label} htmlFor="platform">Plataformas: </label>
+                <input className={style.formInput} id='platform' value={form.platform} type="text" name='platform' placeholder="Inserte las plataformas de jugabilidad" onChange={handlerFormChange} />
                 {errors.platform !== '' ? <span>{errors.platform}</span> : ''}
+                
                 <hr />
-                <label htmlFor="genres">Géneros: </label>
+                <label className={style.label} htmlFor="rating">Rating: </label>
+                <input className={style.formInput} id='rating' value={form.rating} type="text" name='rating' placeholder="Puntúe el juego" onChange={handlerFormChange} />
+                {errors.rating !== '' ? <span>{errors.rating}</span> : ''}
+                <hr />
+                <label className={style.label} htmlFor="image">Imagen: </label>
+                <input className={style.formInput} id='image' value={form.image} type="text" name='image' placeholder="Inserte link de la imagen" onChange={handlerFormChange} />
+                {errors.image !== '' ? <span>{errors.image}</span> : ''}
+                <hr />
+                <label className={style.label} htmlFor="updated">Fecha de lanzamiento: </label>
+                <input className={style.formInput} id='updated' value={form.updated} type="text" name='updated' placeholder="Coloque la fecha" onChange={handlerFormChange} />
+                {errors.updated !== '' ? <span>{errors.updated}</span> : ''}
+                <hr />
+                <label className={style.label} htmlFor="description">Descripción:</label>
+                <input className={style.formInput} id='description' value={form.description} type="text" name='description' placeholder="Elabore una breve descripción del juego" onChange={handlerFormChange} />
+                {errors.description !== '' ? <span>{errors.description}</span> : ''}
+                <hr />
+                <label className={style.label} htmlFor="genres">Géneros: </label>
                 <select onChange={handlerSelectChange}>
                 <option>
                     Select
@@ -103,23 +121,7 @@ return (
                 })}
                 </select>
                 <hr />
-                <label htmlFor="rating">Rating: </label>
-                <input id='rating' value={form.rating} type="text" name='rating' placeholder="Puntúe el juego" onChange={handlerFormChange} />
-                {errors.rating !== '' ? <span>{errors.rating}</span> : ''}
-                <hr />
-                <label htmlFor="image">Imagen: </label>
-                <input id='image' value={form.image} type="text" name='image' placeholder="Inserte link de la imagen" onChange={handlerFormChange} />
-                {errors.image !== '' ? <span>{errors.image}</span> : ''}
-                <hr />
-                <label htmlFor="updated">Fecha de lanzamiento: </label>
-                <input id='updated' value={form.updated} type="text" name='updated' placeholder="Coloque la fecha" onChange={handlerFormChange} />
-                {errors.updated !== '' ? <span>{errors.updated}</span> : ''}
-                <hr />
-                <label htmlFor="description">Descripción:</label>
-                <input id='description' value={form.description} type="text" name='description' placeholder="Elabore una breve descripción del juego" onChange={handlerFormChange} />
-                {errors.description !== '' ? <span>{errors.description}</span> : ''}
-                <hr />
-                <button type='submit'>Crear Juego</button>
+                <button className={style.button} type='submit' >Crear Juego</button>
                 
             </form>
         </div>
